@@ -1,5 +1,5 @@
 const {test, expect} = require('@playwright/test');
-const { openLoginPage } = require('../utils/Login-Helper');
+const {LoginPage} = require('../Pages/LoginPage');
 
 
 
@@ -11,7 +11,9 @@ test('EventHub login page loads', async({page})=> {
     // completes, preventing timing issues and flaky test behavior.
     // ------------------------------------------------------------------------
 
-    await openLoginPage(page);
+    const loginPage = new LoginPage(page);
+    await loginPage.openLoginPage();
+   
 
     // Assert the Email field located by placeholder is visible
     const emailField = page.getByPlaceholder("you@email.com"); 
@@ -24,7 +26,8 @@ test('EventHub login page loads', async({page})=> {
 
 test('Validate password field and login URL', async ({page}) => {
 
-    await openLoginPage(page);
+    const loginPage = new LoginPage(page);
+    await loginPage.openLoginPage();
 
     // Assert the password field located by label Password is visible
     const passwordField = page.getByLabel('Password');

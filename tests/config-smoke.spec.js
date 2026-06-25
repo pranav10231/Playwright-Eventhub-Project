@@ -1,10 +1,11 @@
 const {test, expect} = require('@playwright/test');
-const { openLoginPage } = require('../utils/Login-Helper');
+const {LoginPage} = require('../Pages/LoginPage');
 
 test('Validate elements on eventhub login page.', async ({page})=>{
 
     // navigate to login page
-    await page.goto("/login");
+    const loginPage = new LoginPage(page);
+    await loginPage.openLoginPage();
 
     // Assert the page title matches EventHub:
     await expect(page).toHaveTitle('EventHub — Discover & Book Events');
@@ -20,7 +21,8 @@ test('Validate elements on eventhub login page.', async ({page})=>{
 
 test('Compare page fixture and browser context', async ({page, browser})=> {
     // Navigate to login page
-    await openLoginPage(page);
+    const loginPage = new LoginPage(page);
+    await loginPage.openLoginPage();
 
     // Fill the email textbox with beginner@sample.com
     const emailField = page.getByPlaceholder("you@email.com"); 
